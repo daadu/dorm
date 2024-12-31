@@ -32,3 +32,23 @@ packages = ["src/dorm"]
 
 [tool.uv.workspace]
 members = ["examples/basic"]
+
+[tool.ruff]
+line-length = 120
+show-fixes = true
+
+[tool.ruff.lint]
+extend-select = ["C4", "SIM", "TCH"]
+extend-ignore = [
+    # Skip over usage of simplification at the cost of readability
+    # :: Return the negated condition directly
+    "SIM103",
+    # :: Use a single `with` statement with multiple contexts instead of nested `with` statements
+    "SIM117",
+    # :: Use `dict.get("key", default)` instead of an `if` block
+    # - doesn't work efficiently when `default` is a lazy loaded, as it gets it egerly
+    "SIM401",
+]
+
+[tool.ruff.format]
+quote-style = "preserve"

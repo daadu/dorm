@@ -9,7 +9,9 @@ from django.db import models
 def ensure_setup():
     from django.conf import settings
 
-    assert settings.configured, "dorm setup not done, ensure `setup_dorm` is called before using it's features are used."
+    assert (
+        settings.configured
+    ), "dorm setup not done, ensure `setup_dorm` is called before using it's features are used."
 
 
 def setup():
@@ -25,9 +27,7 @@ def setup():
 
     # determine settings.py file
     settings_file = call_dir / "settings.py"
-    assert (
-        settings_file.is_file()
-    ), f"settings.py file should exists in calling directory: {settings_file}"
+    assert settings_file.is_file(), f"settings.py file should exists in calling directory: {settings_file}"
 
     # setup Django with settings file
     def load_settings_from_file(file_path):
@@ -37,9 +37,7 @@ def setup():
         # "run" settings.py file
         settings_dict = runpy.run_path(file_path)
         # keep on UPPER case values and return
-        settings_dict = {
-            key: value for key, value in settings_dict.items() if key.isupper()
-        }
+        settings_dict = {key: value for key, value in settings_dict.items() if key.isupper()}
         return settings_dict
 
     user_settings = load_settings_from_file(settings_file)
@@ -55,24 +53,16 @@ def setup():
     django.setup()
 
     # create app.migrations package for all user apps (where models exists) <- only when `dorm makemigrations` called
-    if (
-        len(sys.argv) > 1
-        and sys.argv[0].endswith("/dorm")
-        and sys.argv[1] == "makemigrations"
-    ):
+    if len(sys.argv) > 1 and sys.argv[0].endswith("/dorm") and sys.argv[1] == "makemigrations":
         from django.apps import apps
 
         for app_config in apps.get_app_configs():
             # Match the full app name (e.g., 'django.contrib.auth')
             if app_config.name in settings.INSTALLED_APPS and app_config.get_models():
-                maybe_app_module_path = (
-                    call_dir / app_config.name.replace(".", "/")
-                ).resolve()
+                maybe_app_module_path = (call_dir / app_config.name.replace(".", "/")).resolve()
                 if maybe_app_module_path.is_dir():
                     (maybe_app_module_path / "migrations").mkdir(exist_ok=True)
-                    (maybe_app_module_path / "migrations" / "__init__.py").touch(
-                        exist_ok=True
-                    )
+                    (maybe_app_module_path / "migrations" / "__init__.py").touch(exist_ok=True)
 
 
 def _django_manage_py():
