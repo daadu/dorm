@@ -1,5 +1,8 @@
 # dorm
 
+[![PyPI - Version](https://img.shields.io/pypi/v/dorm-project)](https://pypi.org/project/dorm-project/)
+
+
 **dorm** is a lightweight wrapper around Django that provides a minimal 
 interface to its ORM. This package allows you to quickly integrate Django's 
 powerful ORM into your project with minimal configuration—simply add a `settings.py`
