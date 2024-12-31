@@ -68,7 +68,7 @@ That’s how the idea for this project was born.
     > TODO: implement `dorm init` command that scaffolds `settings.py` file
 
 3. Call `dorm.setup()` at the entry point of your project, this will ensure that django setup is done properly before usage.
-This should be called before any import to Django models.
+This should be called at least once before any import of Django models.
 
     ```python
     import dorm
