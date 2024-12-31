@@ -1,8 +1,9 @@
 import os
 import subprocess
+from pathlib import Path
 
 # Path to the `examples` directory
-examples_dir = 'examples'
+examples_dir = Path(__file__).parent.resolve() / ".." / 'examples'
 
 # Loop through subdirectories of `examples`
 for subdir in os.listdir(examples_dir):
