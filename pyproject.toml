@@ -1,6 +1,6 @@
 [project]
 name = "dorm-project"
-version = "0.1.0-pre.0"
+version = "0.2.0"
 description = "Use the best ORM everywhere!"
 readme = "README.md"
 authors = [
