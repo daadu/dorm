@@ -11,6 +11,9 @@ dependencies = [
     "django>=5.0.0,<6.0.0",
 ]
 
+[project.scripts]
+dorm = "dorm:_cli"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
