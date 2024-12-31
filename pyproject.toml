@@ -1,7 +1,7 @@
 [project]
 name = "dorm-project"
 version = "0.2.0"
-description = "Use the best ORM everywhere!"
+description = "dorm is a minimal Django wrapper that lets you use its ORM independently, without the full framework."
 readme = "README.md"
 authors = [
     { name = "Harsh Bhikadia", email = "harsh@bhikadia.com" }
@@ -10,6 +10,15 @@ requires-python = ">=3.10"
 dependencies = [
     "django>=5.0.0,<6.0.0",
 ]
+license = "MIT"
+keywords = [
+    "django",
+    "django orm",
+    "orm",
+]
+
+[project.urls]
+"Source code" = "https://github.com/daadu/dorm"
 
 [project.scripts]
 dorm = "dorm:_cli"
