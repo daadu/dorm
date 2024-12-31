@@ -1,0 +1,12 @@
+[project]
+name = "basic"
+version = "0.1.0"
+description = "Basic example application using dorm"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dorm-project",
+]
+
+[tool.uv.sources]
+dorm-project = { workspace = true }
