@@ -1,5 +1,9 @@
 All notable changes to this project will be documented in this file.
 
+## [0.2.10] - 2025-01-01
+
+- README - added badges for python and django versions
+
 ## [0.2.9] - 2025-01-01
 
 - `pyproject.toml` - more classifiers added 
