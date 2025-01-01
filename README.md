@@ -26,7 +26,7 @@ ORM, simplified for standalone use.
 
 ```bash
 pip install dorm-project "django>=5.1.0,<5.2.0" 
-# Explicitly install Django to ensure compatibility and prevent breaking changes.
+# Install Django to a specific version to ensure compatibility and avoid potential issues.  
 ```
 
 ## Quick Start
