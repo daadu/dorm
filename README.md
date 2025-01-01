@@ -43,7 +43,7 @@ That’s how the idea for this project was born.
 
     ```shell
     cd <proj-root>
-    touch settings.py # << at least add INSTALLED_APPS, DATABASES and DEFAULT_AUTO_FIELD
+    touch settings.py # << at least add INSTALLED_APPS and DATABASES
     ```
 
     ```python
@@ -61,8 +61,6 @@ That’s how the idea for this project was born.
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
-    
-    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
     ```
 
     > TODO: implement `dorm init` command that scaffolds `settings.py` file

@@ -21,13 +21,13 @@ def setup():
     if settings.configured:
         return
 
-    # determine calling directory
-    call_dir = Path().resolve()
-    assert call_dir.is_dir(), f"Calling path should be a directory: {call_dir}"
+    # determine project directory
+    project_dir = Path().resolve()
+    assert project_dir.is_dir(), f"Project path should be a directory: {project_dir}"
 
     # determine settings.py file
-    settings_file = call_dir / "settings.py"
-    assert settings_file.is_file(), f"settings.py file should exists in calling directory: {settings_file}"
+    settings_file = project_dir / "settings.py"
+    assert settings_file.is_file(), f"settings.py file should exists in project directory: {settings_file}"
 
     # setup Django with settings file
     def load_settings_from_file(file_path):
@@ -41,11 +41,16 @@ def setup():
         return settings_dict
 
     user_settings = load_settings_from_file(settings_file)
+
+    # add default required settings if not in the project's settings.py
+    if "DEFAULT_AUTO_FIELD" not in user_settings:
+        user_settings["DEFAULT_AUTO_FIELD "] = "django.db.models.BigAutoField"
+
     settings.configure(**user_settings)
 
     # add calling_dir to PYTHONPATH
-    if str(call_dir) not in sys.path:
-        sys.path.insert(0, str(call_dir))  # 1st entry for higher priority
+    if str(project_dir) not in sys.path:
+        sys.path.insert(0, str(project_dir))  # 1st entry for higher priority
 
     # setup django
     import django
@@ -59,7 +64,7 @@ def setup():
         for app_config in apps.get_app_configs():
             # Match the full app name (e.g., 'django.contrib.auth')
             if app_config.name in settings.INSTALLED_APPS and app_config.get_models():
-                maybe_app_module_path = (call_dir / app_config.name.replace(".", "/")).resolve()
+                maybe_app_module_path = (project_dir / app_config.name.replace(".", "/")).resolve()
                 if maybe_app_module_path.is_dir():
                     (maybe_app_module_path / "migrations").mkdir(exist_ok=True)
                     (maybe_app_module_path / "migrations" / "__init__.py").touch(exist_ok=True)
