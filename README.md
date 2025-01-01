@@ -1,6 +1,8 @@
 # dorm
 
-[![PyPI - Version](https://img.shields.io/pypi/v/dorm-project)](https://pypi.org/project/dorm-project/)
+[![PyPI - Version](https://img.shields.io/pypi/v/dorm-project?logo=pypi)](https://pypi.org/project/dorm-project/)
+[![GitHub License](https://img.shields.io/github/license/daadu/dorm)](https://github.com/daadu/dorm/blob/master/LICENSE)
+[![Stars](https://img.shields.io/github/stars/daadu/dorm?logo=github)](https://github.com/daadu/dorm/stargazers)
 
 **dorm** is a minimal wrapper around Django that allows you to use its ORM 
 independently—no need for the full Django framework. Quickly integrate Django's 
