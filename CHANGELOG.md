@@ -1,5 +1,9 @@
 All notable changes to this project will be documented in this file.
 
+## [0.2.3] - 2025-01-02
+
+- Making `DEFAULT_AUTO_FIELD` not mandatory - setting `'django.db.models.BigAutoField'` by default.
+
 ## [0.2.2] - 2025-01-01
 
 - Minor improve README
