@@ -137,3 +137,4 @@ dorm test
 --- 
 ## Future Plans
 - Add a `dorm init` command to scaffold `settings.py`.
+- Features to make `dorm` feasible with other web framework - with proper connection pooling and transactional requests. [full](https://www.reddit.com/r/django/comments/1hqy923/comment/m4tw22n/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button) 
