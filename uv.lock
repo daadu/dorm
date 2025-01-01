@@ -5,6 +5,7 @@ requires-python = ">=3.12"
 members = [
     "basic",
     "dorm-project",
+    "empty",
 ]
 
 [[package]]
@@ -47,7 +48,7 @@ wheels = [
 
 [[package]]
 name = "dorm-project"
-version = "0.2.4"
+version = "0.2.5"
 source = { editable = "." }
 dependencies = [
     { name = "django" },
@@ -55,6 +56,21 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [{ name = "django", specifier = ">=5.0.0,<6.0.0" }]
+
+[[package]]
+name = "empty"
+version = "0.1.0"
+source = { virtual = "examples/empty" }
+dependencies = [
+    { name = "django" },
+    { name = "dorm-project" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "django", specifier = ">=5.1,<5.2" },
+    { name = "dorm-project", editable = "." },
+]
 
 [[package]]
 name = "sqlparse"

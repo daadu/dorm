@@ -36,12 +36,12 @@ pip install dorm-project "django>=5.1.0,<5.2.0"
 ## Quick Start
 
 #### 1. Add a settings.py file
-At the project root:
+Automatically (recommended) add using `dorm init` command:
 ```bash
 cd <proj-root>
-touch settings.py
+dorm init 
 ```
-Populate settings.py:
+OR Manually add `settings.py` file, ensure `INSTALLED_APPS` and `DATABASES` values are set:
 ```python
 # <proj-root>/settings.py
 from pathlib import Path
@@ -135,6 +135,6 @@ dorm test
 ```
 
 --- 
+
 ## Future Plans
-- Add a `dorm init` command to scaffold `settings.py`.
 - Features to make `dorm` feasible with other web framework - with proper connection pooling and transactional requests. [full](https://www.reddit.com/r/django/comments/1hqy923/comment/m4tw22n/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button) 

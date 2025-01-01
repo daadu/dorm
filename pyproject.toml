@@ -31,7 +31,7 @@ build-backend = "hatchling.build"
 packages = ["src/dorm"]
 
 [tool.uv.workspace]
-members = ["examples/basic"]
+members = ["examples/basic", "examples/empty"]
 
 [tool.ruff]
 line-length = 120
@@ -48,6 +48,9 @@ extend-ignore = [
     # :: Use `dict.get("key", default)` instead of an `if` block
     # - doesn't work efficiently when `default` is a lazy loaded, as it gets it egerly
     "SIM401",
+    # Yoda condition detected
+    # - sometimes the yoda style makes more sense!
+    "SIM300",
 ]
 
 [tool.ruff.format]

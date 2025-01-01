@@ -1,0 +1,2 @@
+# settings.py should never be commited - as will be created and cleaned by test.py
+settings.py
