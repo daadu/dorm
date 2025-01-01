@@ -2,6 +2,8 @@ import os
 import subprocess
 from pathlib import Path
 
+import sys
+
 
 def main():
     # Path to the `examples` directory
@@ -16,7 +18,7 @@ def main():
             subprocess.run(
                 ["python", "-c", "import os, sys; print(os.path.dirname(sys.executable))"], cwd=subdir_path, check=True
             )
-            subprocess.run(["uv", "run", "test.py"], cwd=subdir_path, check=True)
+            subprocess.run([sys.executable, "run", "test.py"], cwd=subdir_path, check=True)
 
 
 if __name__ == "__main__":
