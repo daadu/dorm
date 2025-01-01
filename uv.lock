@@ -21,11 +21,15 @@ name = "basic"
 version = "0.1.0"
 source = { virtual = "examples/basic" }
 dependencies = [
+    { name = "django" },
     { name = "dorm-project" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "dorm-project", editable = "." }]
+requires-dist = [
+    { name = "django", specifier = ">=5.1,<5.2" },
+    { name = "dorm-project", editable = "." },
+]
 
 [[package]]
 name = "django"
@@ -43,7 +47,7 @@ wheels = [
 
 [[package]]
 name = "dorm-project"
-version = "0.1.0rc0"
+version = "0.2.4"
 source = { editable = "." }
 dependencies = [
     { name = "django" },

@@ -1,9 +1,7 @@
-import os
 from pathlib import Path
 import runpy
 
 import sys
-from django.db import models
 
 
 def ensure_setup():
@@ -29,23 +27,15 @@ def setup():
     settings_file = project_dir / "settings.py"
     assert settings_file.is_file(), f"settings.py file should exists in project directory: {settings_file}"
 
-    # setup Django with settings file
-    def load_settings_from_file(file_path):
-        if not os.path.isfile(file_path):
-            raise FileNotFoundError(f"Settings file not found: {file_path}")
-
-        # "run" settings.py file
-        settings_dict = runpy.run_path(file_path)
-        # keep on UPPER case values and return
-        settings_dict = {key: value for key, value in settings_dict.items() if key.isupper()}
-        return settings_dict
-
-    user_settings = load_settings_from_file(settings_file)
-
-    # add default required settings if not in the project's settings.py
+    # setup Django with settings file values
+    # - "run" settings.py file
+    user_settings = runpy.run_path(str(settings_file))
+    # - keep on UPPER case values and return
+    user_settings = {key: value for key, value in user_settings.items() if key.isupper()}
+    # - add default required settings if not in the project's settings.py
     if "DEFAULT_AUTO_FIELD" not in user_settings:
-        user_settings["DEFAULT_AUTO_FIELD "] = "django.db.models.BigAutoField"
-
+        user_settings["DEFAULT_AUTO_FIELD"] = "django.db.models.BigAutoField"
+    # - configure
     settings.configure(**user_settings)
 
     # add calling_dir to PYTHONPATH
@@ -95,5 +85,4 @@ if __name__ == "__main__":
 __ALL__ = [
     setup,
     ensure_setup,
-    models,
 ]
