@@ -1,6 +1,9 @@
 # dorm
 
-[![PyPI - Version](https://img.shields.io/pypi/v/dorm-project?logo=pypi)](https://pypi.org/project/dorm-project/)
+[![PyPI - Version](https://img.shields.io/pypi/v/dorm-project)](https://pypi.org/project/dorm-project/)
+[![PyPI - Status](https://img.shields.io/pypi/status/dorm-project)](https://pypi.org/project/dorm-project/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dorm-project)](https://pypi.org/project/dorm-project/)
+[![PyPI - Versions from Framework Classifiers](https://img.shields.io/pypi/frameworkversions/django/dorm-project)](https://pypi.org/project/dorm-project/)
 [![GitHub License](https://img.shields.io/github/license/daadu/dorm)](https://github.com/daadu/dorm/blob/master/LICENSE)
 [![Stars](https://img.shields.io/github/stars/daadu/dorm?logo=github)](https://github.com/daadu/dorm/stargazers)
 
@@ -9,10 +12,6 @@ independently—no need for the full Django framework. Quickly integrate Django'
 robust ORM into non-Django projects with a simple settings.py file.
 
 > Note: This project is under active development. Use with caution.
-> 
-> Tested on:
-> - Python: 3.10, 3.11, 3.12
-> - Django: 5.0
 
 ## Why dorm?
 The Django ORM is rich with features like automatic schema migrations and effortless joins. 
