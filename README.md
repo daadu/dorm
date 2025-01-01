@@ -41,7 +41,9 @@ Automatically (recommended) add using `dorm init` command:
 cd <proj-root>
 dorm init 
 ```
-OR Manually add `settings.py` file, ensure `INSTALLED_APPS` and `DATABASES` values are set:
+**OR**
+
+Manually add `settings.py` file, ensure `INSTALLED_APPS` and `DATABASES` values are set:
 ```python
 # <proj-root>/settings.py
 from pathlib import Path
