@@ -12,6 +12,10 @@ def main():
         subdir_path = os.path.join(examples_dir, subdir)
         if os.path.isdir(subdir_path):
             print(f"Running test in {subdir_path}")
+            subprocess.run(["python", "-c", "import sys; print('sys.path: ', sys.path)"], cwd=subdir_path, check=True)
+            subprocess.run(
+                ["python", "-c", "import os, sys; print(os.path.dirname(sys.executable))"], cwd=subdir_path, check=True
+            )
             subprocess.run(["python", "test.py"], cwd=subdir_path, check=True)
 
 
