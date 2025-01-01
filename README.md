@@ -5,6 +5,8 @@
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dorm-project)](https://pypi.org/project/dorm-project/)
 [![PyPI - Versions from Framework Classifiers](https://img.shields.io/pypi/frameworkversions/django/dorm-project)](https://pypi.org/project/dorm-project/)
 [![GitHub License](https://img.shields.io/github/license/daadu/dorm)](https://github.com/daadu/dorm/blob/master/LICENSE)
+[![ci](https://github.com/daadu/dorm/actions/workflows/ci.yml/badge.svg)](https://github.com/daadu/dorm/actions/workflows/ci.yml)
+[![cd](https://github.com/daadu/dorm/actions/workflows/cd.yml/badge.svg)](https://github.com/daadu/dorm/actions/workflows/cd.yml)
 [![Stars](https://img.shields.io/github/stars/daadu/dorm?logo=github)](https://github.com/daadu/dorm/stargazers)
 
 **dorm** is a minimal wrapper around Django that allows you to use its ORM 
