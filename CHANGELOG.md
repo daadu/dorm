@@ -1,5 +1,10 @@
 All notable changes to this project will be documented in this file.
 
+## [0.2.11] - 2025-01-02
+
+- CI - test examples with tox on ubuntu, windows and mac for each code push
+- CD - build and publish to pypi, for each tag (`v*`) push
+
 ## [0.2.10] - 2025-01-01
 
 - README - added badges for python and django versions
