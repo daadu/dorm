@@ -46,6 +46,9 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/dorm"]
 
+[tool.uv.sources]
+dorm-project = { workspace = true }
+
 [tool.uv.workspace]
 members = ["examples/basic", "examples/empty"]
 

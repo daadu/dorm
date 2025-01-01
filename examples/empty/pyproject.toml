@@ -8,6 +8,3 @@ dependencies = [
     "django>=5.1,<5.2",
     "dorm-project",
 ]
-
-[tool.uv.sources]
-dorm-project = { workspace = true }
