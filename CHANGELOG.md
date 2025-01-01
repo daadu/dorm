@@ -1,5 +1,9 @@
 All notable changes to this project will be documented in this file.
 
+## [0.2.9] - 2025-01-01
+
+- `pyproject.toml` - more classifiers added 
+
 ## [0.2.8] - 2025-01-01
 
 - `pyproject.toml` - specified classifiers for python & django 
