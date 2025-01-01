@@ -1,5 +1,9 @@
 All notable changes to this project will be documented in this file.
 
+## [0.2.6] - 2025-01-02
+
+- Feature: `dorm init` command added to scaffold `settings.py` file
+
 ## [0.2.5] - 2025-01-02
 
 - Fix: typo in setting default `DEFAULT_AUTO_FIELD`
