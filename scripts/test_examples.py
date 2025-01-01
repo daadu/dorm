@@ -12,7 +12,7 @@ def main():
         subdir_path = os.path.join(examples_dir, subdir)
         if os.path.isdir(subdir_path):
             print(f"Running test in {subdir_path}")
-            subprocess.run(["python", "test.py"], cwd=subdir_path)
+            subprocess.run(["python", "test.py"], cwd=subdir_path, check=True)
 
 
 if __name__ == "__main__":

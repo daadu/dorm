@@ -13,7 +13,7 @@ def main():
 
     try:
         # dorm init
-        subprocess.run(["dorm", "init"], cwd=project_dir)
+        subprocess.run(["dorm", "init"], cwd=project_dir, check=True)
 
         # assert settings_file created with right content
         assert settings_file.exists(), f"settings.py file should be created, by dorm at {settings_file}"
@@ -23,7 +23,7 @@ def main():
         dorm.setup()
         dorm.ensure_setup()
         # - simple django check command
-        subprocess.run(["dorm", "check"], cwd=project_dir)
+        subprocess.run(["dorm", "check"], cwd=project_dir, check=True)
         # - ensure settings value are correct
         from django.conf import settings
 
