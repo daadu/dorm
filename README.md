@@ -20,6 +20,10 @@ The idea for dorm emerged from a desire to use Django’s ORM without unnecessar
 like `manage.py`, `views.py`, or complex settings. With dorm, you get the power of Django 
 ORM, simplified for standalone use.
 
+> **NOTE:** Since `dorm` is a lightweight wrapper around Django, all of Django's features 
+> remain accessible if you choose to use them. `dorm` ensures you can leverage Django’s ORM 
+> with minimal setup and footprint.
+
 ---
 
 ## Installation
@@ -66,11 +70,12 @@ if __name__ == "__main__":
 #### 3. Define models
 Create a `models.py` in a package and add Django models:
 ```shell
-mkdir -p my_app
-touch my_app/models.py
+mkdir -p blog
+touch blog/models.py
 ```
 Example model:
 ```python
+# blog/models.py
 from django.db import models
 
 class Post(models.Model):
@@ -84,12 +89,12 @@ Add your package to `INSTALLED_APPS` in `settings.py`:
 ```python
 # <proj-root>/settings.py
 INSTALLED_APPS = [
-    "my_app",
+    "blog",
 ]
 ```
 
 #### 5. Run migrations
-Use dorm to manage migrations (or any django management command - like `shell`, `test`, `dbshell`, etc:
+Use `dorm` cli to manage migrations (or any django management command - like `shell`, `test`, `dbshell`, etc:
 ```shell
 dorm makemigrations
 dorm migrate
@@ -101,14 +106,34 @@ Access your models in an interactive shell:
 dorm shell
 ```
 Example:
-```python
->>> from my_app.models import Post
+```pycon
+>>> from blog.models import Post
 >>> post = Post(title="Hello", slug="hello-world", body="This is dorm!")
 >>> post.save()
 >>> Post.objects.all()
 ```
 
---- 
+#### 7. Write `unittest` using the ORM
+Example:
+```python
+# blog/tests.py
+from django.test import TestCase
 
+from blog.models import Post
+
+class TestPostModel(TestCase):
+    def test_creating_object(self):
+        post = Post()
+        post.title = "Fake title"
+        post.slug = "fake-title"
+        post.post = "fake body"
+        post.save()
+```
+Run test with [Django test runner](https://docs.djangoproject.com/en/5.1/topics/testing/overview/#running-tests) via `dorm` cli:
+```shell
+dorm test
+```
+
+--- 
 ## Future Plans
 - Add a `dorm init` command to scaffold `settings.py`.
