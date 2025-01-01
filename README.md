@@ -2,126 +2,113 @@
 
 [![PyPI - Version](https://img.shields.io/pypi/v/dorm-project)](https://pypi.org/project/dorm-project/)
 
+**dorm** is a minimal wrapper around Django that allows you to use its ORM 
+independently—no need for the full Django framework. Quickly integrate Django's 
+robust ORM into non-Django projects with a simple settings.py file.
 
-**dorm** is a lightweight wrapper around Django that provides a minimal 
-interface to its ORM. This package allows you to quickly integrate Django's 
-powerful ORM into your project with minimal configuration—simply add a `settings.py`
-file to the project root and you're ready to start using it.
-
-> The project is still under active development, use it at your own risk.
+> Note: This project is under active development. Use with caution.
 > 
-> Tested only against:
+> Tested on:
 > - Python: 3.10, 3.11, 3.12
 > - Django: 5.0
 
-Familiarity with Django (especially about [Models and databases](https://docs.djangoproject.com/en/5.1/topics/db/)) is expected to use this project.
+## Why dorm?
+The Django ORM is rich with features like automatic schema migrations and effortless joins. 
+Other python ORMs, like SQLAlchemy, often felt less intuitive in comparison.
 
-## Initial motivation
+The idea for dorm emerged from a desire to use Django’s ORM without unnecessary overhead 
+like `manage.py`, `views.py`, or complex settings. With dorm, you get the power of Django 
+ORM, simplified for standalone use.
 
-I’ve always been a big fan of the Django ORM, especially its features like 
-automatic schema migrations and the ability to perform joins without writing
-raw SQL.
+---
 
-Over time, I’ve used it outside of full Django projects whenever I needed to 
-interact with a database. Given the richness of Django’s ORM, I found other 
-standalone ORMs (like SQLAlchemy) to be lacking in comparison. During these 
-experiences, I kept wondering: what if I could use just the ORM, without the 
-need for `manage.py`, `views.py`, `urls.py`, or any unnecessary entries 
-in `settings.py`?
+## Installation
 
-That’s how the idea for this project was born.
+```bash
+pip install dorm-project "django>=5.1.0,<5.2.0" 
+# Explicitly install Django to ensure compatibility and prevent breaking changes.
+```
 
-## Basic Usage
+## Quick Start
 
-1. Install dorm
+#### 1. Add a settings.py file
+At the project root:
+```bash
+cd <proj-root>
+touch settings.py
+```
+Populate settings.py:
+```python
+# <proj-root>/settings.py
+from pathlib import Path
 
-    ```shell
-    pip install dorm-project
-    ```
+BASE_DIR = Path(__file__).parent.resolve()
 
-2. Initialize your project to use dorm, by adding `settings.py` to the project root
-
-    ```shell
-    cd <proj-root>
-    touch settings.py # << at least add INSTALLED_APPS and DATABASES
-    ```
-
-    ```python
-    # <proj-root>/settings.py
-    
-    from pathlib import Path
-    
-    BASE_DIR = Path(__file__).parent.resolve()
-    
-    INSTALLED_APPS = []
-    
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
+INSTALLED_APPS = []
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
-    ```
+}
+```
 
-    > TODO: implement `dorm init` command that scaffolds `settings.py` file
+#### 2. Set up dorm
+Initialize the ORM in your project's entry point:
+```python
+# entrypoint - main.py, script.py, etc
+import dorm
 
-3. Call `dorm.setup()` at the entry point of your project, this will ensure that django setup is done properly before usage.
-This should be called at least once before any import of Django models.
+if __name__ == "__main__":
+    dorm.setup()
+```
 
-    ```python
-    import dorm
-    
-    if __name__ == "__main__":
-        dorm.setup()
-        ...
-    ```
+#### 3. Define models
+Create a `models.py` in a package and add Django models:
+```shell
+mkdir -p my_app
+touch my_app/models.py
+```
+Example model:
+```python
+from django.db import models
 
-4. Add `models.py` to a new or existing package (this package will be considered as a Django app, check point 5 below), and add some models in it
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True)
+    body = models.TextField()
+```
 
-    ```shell
-    mkdir -p <my-package>
-    touch <my-package>/models.py
-    ``` 
+#### 4. Register your app
+Add your package to `INSTALLED_APPS` in `settings.py`:
+```python
+# <proj-root>/settings.py
+INSTALLED_APPS = [
+    "my_app",
+]
+```
 
-    ```python
-    # <my-package>/models.py
-    
-    from django.db import models
-    
-    
-    class Post(models.Model):
-        title: str = models.CharField(max_length=100)
-        slug: str = models.SlugField(unique=True)
-        body: str = models.TextField()
-    ```
+#### 5. Run migrations
+Use dorm to manage migrations (or any django management command - like `shell`, `test`, `dbshell`, etc:
+```shell
+dorm makemigrations
+dorm migrate
+```
 
-5. Add the package with `models.py` to `INSTALLED_APPS` in `settings.py`
+#### 6. Use the ORM
+Access your models in an interactive shell:
+```shell
+dorm shell
+```
+Example:
+```python
+>>> from my_app.models import Post
+>>> post = Post(title="Hello", slug="hello-world", body="This is dorm!")
+>>> post.save()
+>>> Post.objects.all()
+```
 
-    ```python
-    # settings.py
-    ...
-    INSTALLED_APPS = [
-        ...,
-        "<my-package>",
-        ...,
-    ]
-    ...
-    ```
+--- 
 
-6. Make migrations and migrate with `dorm` commands (can run all django management commands with it - like `shell`, `test`, `dbshell`, etc)
-
-    ```shell
-    dorm makemigrations
-    dorm migrate
-    ```
-
-7. Create some objects with `dorm shell`
-
-    ```shell
-    dorm shell
-    ...
-    >>> from blog.models import Blog
-    >>> blog = Blog(title="Hello", body="... World!!", slug="hello-world")
-    >>> blog.save()
-    >>> Blog.objects.all()
-    ```
+## Future Plans
+- Add a `dorm init` command to scaffold `settings.py`.
