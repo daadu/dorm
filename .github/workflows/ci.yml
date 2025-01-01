@@ -22,10 +22,11 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install uv tool
+      - name: Install uv, tox
         run: |
           python -m pip install --upgrade pip
           pip install uv
+          uv tool install tox --with tox-uv
 
       - name: Sync dependencies
         run: uv sync
