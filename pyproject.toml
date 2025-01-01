@@ -27,7 +27,10 @@ classifiers = [
     "Framework :: Django :: 5.0",
     "Framework :: Django :: 5.1",
     # Other
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
     "Intended Audience :: Developers",
+    "Topic :: Database :: Front-Ends",
 ]
 
 [project.urls]
