@@ -13,18 +13,18 @@
 independently—no need for the full Django framework. Quickly integrate Django's 
 robust ORM into non-Django projects with a simple settings.py file.
 
-> Note: This project is under active development. Use with caution.
+> **Note:** This project is under active development. Use with caution.
 
 ## Why dorm?
 The Django ORM is rich with features like automatic schema migrations and effortless joins. 
 Other python ORMs, like SQLAlchemy, often felt less intuitive in comparison.
 
-The idea for dorm emerged from a desire to use Django’s ORM without unnecessary overhead 
+The idea for dorm emerged from a desire to use Django's ORM without unnecessary overhead 
 like `manage.py`, `views.py`, or complex settings. With dorm, you get the power of Django 
 ORM, simplified for standalone use.
 
-> **NOTE:** Since `dorm` is a lightweight wrapper around Django, all of Django's features 
-> remain accessible if you choose to use them. `dorm` ensures you can leverage Django’s ORM 
+> **Note:** Since `dorm` is a lightweight wrapper around Django, all of Django's features 
+> remain accessible if you choose to use them. `dorm` ensures you can leverage Django's ORM 
 > with minimal setup and footprint.
 
 ---
@@ -62,14 +62,31 @@ DATABASES = {
 }
 ```
 
-#### 2. Set up dorm
-Initialize the ORM in your project's entry point:
+#### 2. Setup dorm
+
+Call the `dorm.setup()` method in your project's entry point (e.g., `main.py`, `app.py`, or the script that starts 
+your application) to initialize the Django ORM and set up the necessary database connections. This step is essential
+for using the ORM independently of the full Django framework.
+
+If you're interacting with the project via the `dorm` CLI (e.g., running migrations or using the shell or any 
+custom Django management command), `dorm.setup()` is automatically called for you.
+
+> **Note:** Ensure that models are imported **after** calling `dorm.setup()` to avoid any initialization issues.
+
+
+Here's how you might set it up in your entry point:
 ```python
-# entrypoint - main.py, script.py, etc
+# entrypoint - main.py, script.py, project.__init__.py etc
 import dorm
 
-if __name__ == "__main__":
+def main():
     dorm.setup()
+    
+    # You can start importing and using your models from here...
+    
+
+if __name__ == "__main__":
+    main() 
 ```
 
 #### 3. Define models
@@ -99,7 +116,7 @@ INSTALLED_APPS = [
 ```
 
 #### 5. Run migrations
-Use `dorm` cli to manage migrations (or any django management command - like `shell`, `test`, `dbshell`, etc:
+Use `dorm` CLI to manage migrations (or any django management command - like `shell`, `test`, `dbshell`, etc:
 ```shell
 dorm makemigrations
 dorm migrate
@@ -134,7 +151,7 @@ class TestPostModel(TestCase):
         post.post = "fake body"
         post.save()
 ```
-Run test with [Django test runner](https://docs.djangoproject.com/en/5.1/topics/testing/overview/#running-tests) via `dorm` cli:
+Run test with [Django test runner](https://docs.djangoproject.com/en/5.1/topics/testing/overview/#running-tests) via `dorm` CLI:
 ```shell
 dorm test
 ```
