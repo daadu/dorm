@@ -1,0 +1,13 @@
+[project]
+name = "nested-entrypoint"
+version = "0.1.0"
+description = "dorm example application, where the entrypoint is not in the root (where settings.py is)."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django>=5.1,<5.2",
+    "dorm-project",
+]
+
+[tool.uv.sources]
+dorm-project = { workspace = true }

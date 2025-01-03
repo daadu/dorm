@@ -5,6 +5,8 @@ import sys
 from django.core.management import ManagementUtility, BaseCommand, CommandError, color_style
 import django
 
+_STYLE = color_style()
+
 
 def _discover_project_path() -> Path:
     project_path = Path().resolve()
@@ -12,7 +14,7 @@ def _discover_project_path() -> Path:
     return project_path
 
 
-def setup():
+def setup(*, settings_dir: str | Path | None = None):
     from django.conf import settings
 
     # IGNORE <- if already configured
@@ -20,12 +22,19 @@ def setup():
         return
 
     # determine settings.py file
-    project_dir = _discover_project_path()
-    settings_file = project_dir / "settings.py"
+    project_dir = settings_dir or _discover_project_path()
+    settings_file = Path(project_dir) / "settings.py"
+
     if not settings_file.is_file():
         raise RuntimeError(
-            "Ensure that your project is initialized properly.\n"
-            f"Execute `dorm` command or manually create `settings.py` file at {settings_file}"
+            _STYLE.ERROR(
+                "\n"
+                f"Setting file not found at: {settings_file}\n"
+                f"Ensure settings.py exists in the project root. If the lookup path is wrong then:\n"
+                f"Make sure your entrypoint is called from same directory where `settings.py` is located. Example: `./scripts/main.py` in `<proj-root>` instead of `./main.py` inside `<proj-root>/scripts`\n"
+                f"OR\n"
+                f"Set `settings_dir` explicitly while calling `dorm.setup(settings_dir=...)`."
+            )
         )
 
     # setup Django with settings file values
@@ -137,8 +146,7 @@ DATABASES = {
             return "\n".join(sorted(cmds))
 
         # make [dorm] commands content
-        style = color_style()
-        dorm_content = [style.NOTICE("[dorm]")]
+        dorm_content = [_STYLE.NOTICE("[dorm]")]
         for cmd in self.dorm_commands:
             dorm_content.append(f"    {cmd}")
         dorm_content = "\n".join(dorm_content)
@@ -196,7 +204,7 @@ def _cli():
 
     # execute cli
     hook_before_setup()
-    setup()
+    setup(settings_dir=project_path)
     ensure_setup()
     hook_after_setup()
     execute_management_command()

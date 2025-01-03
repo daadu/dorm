@@ -73,6 +73,8 @@ custom Django management command), `dorm.setup()` is automatically called for yo
 
 > **Note:** Ensure that models are imported **after** calling `dorm.setup()` to avoid any initialization issues.
 
+> **Note:** Ensure you call `dorm` or your entrypoint from the project root (where the settings.py is).
+> If you want to call from somewhere else, then explicitly pass `settings_dir` to `dorm.setup(settings_dir=...)`
 
 Here's how you might set it up in your entry point:
 ```python

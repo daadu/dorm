@@ -50,7 +50,7 @@ packages = ["src/dorm"]
 dorm-project = { workspace = true }
 
 [tool.uv.workspace]
-members = ["examples/basic", "examples/empty"]
+members = ["examples/basic", "examples/empty", "examples/nested_entrypoint"]
 
 [tool.ruff]
 line-length = 120
