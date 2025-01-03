@@ -2,6 +2,8 @@ import subprocess
 import sys
 from pathlib import Path
 from subprocess import SubprocessError
+from tempfile import TemporaryDirectory
+
 from django.core.management import color_style
 
 _STYLE = color_style()
@@ -33,9 +35,10 @@ def main():
     subprocess.run(
         [sys.executable, str(scripts_path / "run_with_explict_settings_dir.py")], cwd=str(project_root), check=True
     )
-    subprocess.run(
-        [sys.executable, str(scripts_path / "run_with_explict_settings_dir.py")], cwd=str("/tmp/"), check=True
-    )
+    with TemporaryDirectory() as tmp_dir:
+        subprocess.run(
+            [sys.executable, str(scripts_path / "run_with_explict_settings_dir.py")], cwd=str(tmp_dir), check=True
+        )
 
 
 if __name__ == "__main__":
