@@ -1,5 +1,12 @@
 All notable changes to this project will be documented in this file.
 
+## [0.2.15] - 2025-01-03
+
+- CI/CD: CD after CI is completed
+
+- _This is also to test the CD pipeline._
+
+
 ## [0.2.14] - 2025-01-03
 
 - FEAT: feat: allow settings `settings_dir` explicitly

@@ -1,6 +1,6 @@
 [project]
 name = "dorm-project"
-version = "0.2.14"
+version = "0.2.15"
 description = "dorm is a minimal Django wrapper that lets you use its ORM independently, without the full framework."
 readme = "README.md"
 authors = [
