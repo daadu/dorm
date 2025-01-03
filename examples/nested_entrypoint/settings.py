@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).parent.resolve()
 # List of packages (Django apps), defining Django models.
 # Each item should be a dotted Python path to package containing `models` as a module or a sub-package.
 # https://docs.djangoproject.com/en/5.1/topics/db/models/
-INSTALLED_APPS = []  # TODO: add package here, after adding models
+INSTALLED_APPS = []
 
 # Databases
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
