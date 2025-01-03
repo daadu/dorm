@@ -1,7 +1,6 @@
 import subprocess
 import sys
 from pathlib import Path
-from subprocess import SubprocessError
 from tempfile import TemporaryDirectory
 
 from django.core.management import color_style
@@ -14,21 +13,24 @@ def main():
     scripts_path = project_root / "scripts"
 
     # should FAIL: when calling entrypoint (without explicit `settings_dir`) from the project-root
-    error = None
+    error: subprocess.CalledProcessError | None = None
     try:
         subprocess.run(
             [sys.executable, str(scripts_path / "run_without_explict_settings_dir.py")],
             cwd=str(scripts_path),
             check=True,
+            capture_output=True,
         )
-    except SubprocessError as e:
+    except subprocess.CalledProcessError as e:
         error = e
-    assert isinstance(error, SubprocessError), "Should fail when calling dorm.setup(), not from the project root."
-    print(_STYLE.WARNING("^^^ The above error is expected as part of the test."))
+    assert error, "Should fail when calling dorm.setup(), not from the project root."
+    assert b"Ensure settings.py exists in the project root." in error.stderr, f"Error output: {error.stderr}"
 
     # should PASS: when calling entrypoint (without explicit `settings_dir`) from the project root
     subprocess.run(
-        [sys.executable, str(scripts_path / "run_without_explict_settings_dir.py")], cwd=str(project_root), check=True
+        [sys.executable, str(scripts_path / "run_without_explict_settings_dir.py")],
+        cwd=str(project_root),
+        check=True,
     )
 
     # should PASS: when calling entrypoint (with explicit `settings_dir`) from within the project or outside the project
