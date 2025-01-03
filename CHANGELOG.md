@@ -1,5 +1,9 @@
 All notable changes to this project will be documented in this file.
 
+## [0.2.14] - 2025-01-03
+
+- FEAT: feat: allow settings `settings_dir` explicitly
+
 ## [0.2.13] - 2025-01-02
 
 - README: improve the setup dorm step
