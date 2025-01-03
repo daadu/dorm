@@ -1,17 +1,13 @@
 name: Continuous Delivery
 
 on:
-  workflow_run:
-    workflows: [ "Continuous Integration" ]
-    types:
-      - completed
-    branches:
+  push:
+    tags:
       - "v*"
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout code
